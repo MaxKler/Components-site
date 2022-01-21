@@ -70,3 +70,13 @@ document.addEventListener("keyup", function (event) {
 		menuBody.classList.remove('_active')
 	}
 })
+
+const toggle = document.querySelector('.toggle') 
+const navigation = document.querySelector('.navigation')
+const contain = document.querySelector('.container') 
+
+toggle.onclick = () => {
+	toggle.classList.toggle('active')
+	navigation.classList.toggle('active')
+	contain.classList.toggle('active')
+}
