@@ -80,3 +80,18 @@ toggle.onclick = () => {
 	navigation.classList.toggle('active')
 	contain.classList.toggle('active')
 }
+
+const lazyImages = document.querySelectorAll('img[data-src]')
+const loadMapBlock = document.querySelector('._load-map')
+const windowHeight = document.documentElement.clientHeight
+
+let lazyImagesPositions = []
+ if (lazyImages.length > 0) {
+	 lazyImages.forEach(img => {
+		 if (img.dataset.src) {
+			 lazyImagesPositions.push(img.getBoundingClientRect().top + pageYOffset)
+		 }
+	 })
+ }
+
+ console.log(lazyImagesPositions)
