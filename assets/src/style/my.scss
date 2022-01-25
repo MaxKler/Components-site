@@ -299,3 +299,13 @@ body {
 	background: url('./../img/load.gif') center / 58px no-repeat;
 	height: 58px;
 }
+
+.simple-rating {
+	position: relative;
+	font-size: 40px;
+	display: inline-block;
+}
+.simple-rating::before {
+	content: "★★★★★";
+	display: block;
+}
