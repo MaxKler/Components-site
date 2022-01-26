@@ -168,4 +168,15 @@ let lazyImagesPositions = []
 			 alert('error')
 		 }
 	 }
- }
+}
+
+const rating = document.querySelectorAll('.rating')
+
+// основная функция 
+const initRatings = () => {
+	let ratingActive, ratingValue;
+
+	// инициализация переменных
+
+	// изменяем ширину активных звезд
+}
