@@ -170,13 +170,86 @@ let lazyImagesPositions = []
 	 }
 }
 
-const rating = document.querySelectorAll('.rating')
-
-// основная функция 
-const initRatings = () => {
-	let ratingActive, ratingValue;
-
-	// инициализация переменных
-
-	// изменяем ширину активных звезд
+const ratings = document.querySelectorAll('.rating')
+if (ratings.length > 0) {
+	initRatings()
 }
+// основная функция 
+function initRatings()  {
+	let ratingActive, ratingValue;
+     // бегаем по всем рейтингам на странице
+	for (let index = 0; index < ratings.length; index++) {
+		const rating = ratings[index]
+		initRating(rating)
+	}
+
+	// инициализируем конкретный рейтинг 
+	function initRating(rating) {
+		initRatingVars(rating)
+		setRatingActiveWidth()
+		if (rating.classList.contains('rating__set')) {
+			setRating(rating)
+		}
+	}
+	// инициализация переменных
+    function initRatingVars(rating) {
+	    ratingActive = rating.querySelector('.rating__active')
+	    ratingValue = rating.querySelector('.rating__value')
+    }
+	// изменяем ширину активных звезд
+    function setRatingActiveWidth(index = ratingValue.innerHTML) {
+		const ratingActiveWidth = index / 0.05
+		ratingActive.style.width = `${ratingActiveWidth}%`
+	}
+	// возможность указать оценку
+    function setRating(rating) {
+		const ratingItems = rating.querySelectorAll('.rating__item')
+		for (let index = 0; index < ratingItems.length; index++) {
+			const ratingItem = ratingItems[index]
+			ratingItem.addEventListener("mouseenter", function (e) {
+				// обновление переменных
+				initRatingVars(rating)
+				// обновлене активных звезд 
+				setRatingActiveWidth(ratingItem.value)
+			})
+			ratingItem.addEventListener("mouseleave", function (e) {
+				// обновлене активных звезд 
+				setRatingActiveWidth()
+			})
+			ratingItem.addEventListener("click", function (e) {
+				// обновление переменных
+				initRatingVars(rating)
+				if (rating.dataset.ajax) {
+					// отправить на сервер
+					setRatingValue(ratingItem.value, rating)
+				} else {
+					// отобразить указаную оценку
+					ratingValue.innerHTML = index + 1
+					setRatingActiveWidth()
+				}
+			})
+		}
+	}
+	
+}
+
+
+// circle 
+const circles = document.querySelectorAll('.circle')
+circles.forEach(elem => {
+	var dots = elem.getAttribute('data-dots')
+	var marked = elem.getAttribute('data-percent')
+	var percent = Math.floor(dots*marked/100)
+	var rotate = 360/dots
+    var points = ""
+	for (let i = 0; i < dots; i++) {
+		points += `<div class="points" style="--i: ${i}; --rot: ${rotate}deg"></div>`;
+	}
+	elem.innerHTML = points
+
+	const pointsMarked = elem.querySelectorAll('.points')
+
+	for (let i = 0; i < percent; i++) {
+		pointsMarked[i].classList.add('marked')
+	}
+})
