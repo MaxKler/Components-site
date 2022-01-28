@@ -253,3 +253,17 @@ circles.forEach(elem => {
 		pointsMarked[i].classList.add('marked')
 	}
 })
+
+let valueContainer = document.querySelector('.value-container')
+
+let progressValue = 0;
+let progressEndValue = 90;
+let speed = 49
+
+let progress = setInterval(() => {
+	progressValue++;
+	valueContainer.textContent = `${progressValue}%`;
+	if (progressValue == progressEndValue) {
+		clearInterval(progress)
+	}
+}, speed)
